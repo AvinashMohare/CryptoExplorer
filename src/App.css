@@ -297,12 +297,13 @@ a:hover {
     justify-content: space-between !important;
 }
 .news-title {
-    width: 70%;
+    width: 68%;
 }
 
-.news-image-container .img {
+.news-image-container img {
     width: 100px;
     height: 100px;
+    border-top-left-radius: 20%;
 }
 .news-card p {
     color: black;
