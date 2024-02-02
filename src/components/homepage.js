@@ -6,6 +6,7 @@ import millify from "millify";
 import Cryptocurrencies from "./cryptocurrencies";
 import { Link } from "react-router-dom";
 import News from "./news";
+import Loader from "./loader";
 
 const { Title } = Typography;
 
@@ -14,7 +15,7 @@ const Homepage = () => {
 
     var globalStats = data?.data.stats;
 
-    if (isFetching) return "Loading...";
+    if (isFetching) return <Loader />;
     console.log(data);
     return (
         <>

@@ -3,11 +3,14 @@ import { useGetCryptosQuery } from "../services/cryptoApi";
 import { Row, Card, Col, Input } from "antd";
 import millify from "millify";
 import { Link } from "react-router-dom";
+import Loader from "./loader";
 
 const Cryptocurrencies = ({ simplified }) => {
     const count = simplified ? 10 : 100;
     const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
     const [cryptos, setCryptos] = useState([]);
+
+    console.log(cryptosList);
 
     //Taking searchTerm from the input and checking by iterating the list if the name contains the searchTerm or not
     const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +22,7 @@ const Cryptocurrencies = ({ simplified }) => {
         setCryptos(filteredData);
     }, [cryptosList, searchTerm]);
 
-    if (isFetching) return "Loading...";
+    if (isFetching) return <Loader />;
 
     return (
         <>
@@ -41,7 +44,7 @@ const Cryptocurrencies = ({ simplified }) => {
                         className="crypto-card"
                         key={currency.id}
                     >
-                        <Link to={`/crypto/${currency.id}`}>
+                        <Link to={`/crypto/${currency.uuid}`}>
                             <Card
                                 title={`${currency.rank}. ${currency.name}`}
                                 extra={

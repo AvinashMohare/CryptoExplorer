@@ -176,6 +176,8 @@ a:hover {
     font-weight: 700 !important;
     margin-top: 20px !important;
     color: var(--pink) !important;
+    padding: 0;
+    margin: 0;
 }
 
 .coin-stats {
