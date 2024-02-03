@@ -14,8 +14,13 @@ import {
     ThunderboltOutlined,
 } from "@ant-design/icons";
 import millify from "millify";
-import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
+import {
+    useGetCryptoDetailsQuery,
+    useGetCryptoHistoryQuery,
+} from "../services/cryptoApi";
 import Loader from "./loader";
+import LineChart from "./lineChart";
+import { Line } from "react-chartjs-2";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -25,6 +30,12 @@ const CryptoDetails = () => {
     const [timePeriod, setTimePeriod] = useState("7d");
 
     const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+    const { data: coinHistory } = useGetCryptoHistoryQuery({
+        coinId,
+        timePeriod,
+    });
+
+    console.log(coinHistory);
 
     const cryptoDetails = data?.data?.coin;
 
@@ -93,8 +104,6 @@ const CryptoDetails = () => {
         },
     ];
 
-    console.log(data);
-
     return (
         <Col className="coin-detail-container">
             <Col className="coin-heading-container">
@@ -117,7 +126,11 @@ const CryptoDetails = () => {
                 ))}
             </Select>
 
-            {/* Line Chart */}
+            <LineChart
+                coinHistory={coinHistory}
+                currentPrice={millify(cryptoDetails.price)}
+                coinName={cryptoDetails.name}
+            />
 
             <Col className="stats-container">
                 <Col className="coin-value-statistics">
